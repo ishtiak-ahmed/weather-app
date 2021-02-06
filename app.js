@@ -1,10 +1,12 @@
 const apiKey = '976444ef5c118b83e84bcab4a3068f08';
 
-let cityName = '';
+let cityName = 'Dhaka';
 
 function searchWeather() {
     cityName = document.getElementById('cityName').value;
-
+    if (!(cityName.length)) {
+        cityName = 'Dhaka'
+    }
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
     fetch(url)
         .then(res => res.json())
@@ -25,3 +27,9 @@ function updateUI(city, temp, type) {
     document.getElementById('temp').innerText = temp;
     document.querySelector('.lead').innerText = type;
 }
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        event.preventDefault();
+        searchWeather();
+    }
+})
